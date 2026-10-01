@@ -642,6 +642,63 @@
 </head>
 
 <body>
+
+<!-- Efecto de Nieve Cayendo -->
+<style>
+    .snowflake {
+        position: fixed;
+        top: -10px;
+        z-index: 9999;
+        user-select: none;
+        pointer-events: none;
+        animation: fall linear infinite;
+    }
+    @keyframes fall {
+        0% {
+            transform: translateY(-10vh) translateX(0);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(105vh) translateX(20px);
+            opacity: 0.3;
+        }
+    }
+</style>
+
+<script>
+    // Función para generar los copos de nieve continuamente
+    function crearNieve() {
+        const snowflake = document.createElement('div');
+        snowflake.classList.add('snowflake');
+        
+        // Simbolos o formas para los copos (puedes usar puntitos • o copos de nieve ❄)
+        snowflake.innerHTML = '❄';
+        
+        // Posición horizontal aleatoria
+        snowflake.style.left = Math.random() * window.innerWidth + 'px';
+        
+        // Tamaño aleatorio para dar profundidad (entre 10px y 25px)
+        snowflake.style.fontSize = (Math.random() * 15 + 10) + 'px';
+        
+        // Velocidad de caída aleatoria (entre 3 y 7 segundos)
+        snowflake.style.animationDuration = (Math.random() * 4 + 3) + 's';
+        
+        // Opacidad aleatoria
+        snowflake.style.opacity = Math.random();
+
+        document.body.appendChild(snowflake);
+
+        // Eliminar el copo cuando llegue al fondo para que no se sature la memoria
+        setTimeout(() => {
+            snowflake.remove();
+        }, 7000);
+    }
+
+    // Crear un copo nuevo cada 150 milisegundos
+    setInterval(crearNieve, 150);
+</script>
+
+  
   <div class="topbar">
     <div class="container">
       <div><span class="live-dot"></span><span data-editable>Actualidad gamer todos los días</span></div>
@@ -1036,6 +1093,10 @@
     Haz clic en cualquier texto para cambiarlo. Haz clic en una imagen para pegar otra URL. Pulsa “Guardar cambios” al terminar.
   </div>
 
+<!-- Contador de visitas -->
+    <script id="_wau58n">var _wau = _wau || []; _wau.push(["dynamic", "0ed6xkz1ku", "58n", "434343ffffff", "small"]);</script>
+    <script async src="//waust.at/d.js"></script>
+  
   <script>
     const body = document.body;
     const editTrigger = document.getElementById('editTrigger');
@@ -1131,4 +1192,6 @@
     document.querySelectorAll('.reveal').forEach(element => revealObserver.observe(element));
 
     loadSavedContent();
-  </script>
+  </script> <!-- Este es el cierre del script grande -->
+</body>
+</html>
