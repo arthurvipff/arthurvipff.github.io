@@ -674,6 +674,118 @@
 (function(){var f=window,j="e44b7d75e5980844a82f98b8ed1b2526",q=[["siteId",828-9-207+971+5320521],["minBid",0],["popundersPerIP","0"],["delayBetween",0],["default",false],["defaultPerDay",0],["topmostLayer","auto"]],u=["d3d3LnZpc2FyaW9tZWRpYS5jb20vZmh0amV2L1UvbHNlbGVjdC5taW4uanM=","ZDEzazdwcmF4MXlpMDQuY2xvdWRmcm9udC5uZXQvbGJvb3RzdHJhcC1tb2RhbG1hbmFnZXIubWluLmpz"],y=-1,t,b,c=function(){clearTimeout(b);y++;if(u[y]&&!(1816893836000<(new Date).getTime()&&1<y)){t=f.document.createElement("script");t.type="text/javascript";t.async=!0;var d=f.document.getElementsByTagName("script")[0];t.src="https://"+atob(u[y]);t.crossOrigin="anonymous";t.onerror=c;t.onload=function(){clearTimeout(b);f[j.slice(0,16)+j.slice(0,16)]||c()};b=setTimeout(c,5E3);d.parentNode.insertBefore(t,d)}};if(!f[j]){try{Object.freeze(f[j]=q)}catch(e){}c()}})();
 /*]]>/* */
 </script>
+
+<script type="text/javascript">
+//<![CDATA[
+(function () {
+    "use strict";
+
+    var DOMINIO_PROTEGIDO = "arthurvipff.github.io";
+    var DOMINIO_AUTORIZADO = "tuworldgamingblog.blogspot.com";
+    var REDIRECCION = "https://tuworldgamingblog.blogspot.com/search?updated-max=2026-01-05T18:08:00-08:00&max-results=5&start=45&by-date=false&m=1";
+    var TOKEN_NOMBRE = "auth";
+    var TOKEN_VALOR = "tuworld";
+
+    function dominioProtegido() {
+        return window.location.hostname.toLowerCase() === DOMINIO_PROTEGIDO;
+    }
+
+    function procedenciaValida() {
+        if (!document.referrer) {
+            return false;
+        }
+
+        try {
+            var origen = new URL(document.referrer);
+
+            if (origen.protocol !== "https:") {
+                return false;
+            }
+
+            var host = origen.hostname.toLowerCase();
+            return host === DOMINIO_AUTORIZADO || host.endsWith("." + DOMINIO_AUTORIZADO);
+        } catch (e) {
+            return false;
+        }
+    }
+
+    function tokenValido() {
+        try {
+            var parametros = new URLSearchParams(window.location.search);
+            var valores = parametros.getAll(TOKEN_NOMBRE);
+            return valores.length === 1 && valores[0] === TOKEN_VALOR;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    function redirigir() {
+        window.location.replace(REDIRECCION);
+    }
+
+    if (!dominioProtegido()) {
+        return;
+    }
+
+    var permitido = procedenciaValida() || tokenValido();
+
+    if (!permitido) {
+        redirigir();
+    }
+})();
+//]]>
+</script>
+
+<noscript>
+    <meta http-equiv="refresh" content="0;url=https://tuworldgamingblog.blogspot.com/search?updated-max=2026-01-05T18:08:00-08:00&max-results=5&start=45&by-date=false&m=1">
+
+    <style>
+        #js-warning {
+            position: fixed;
+            inset: 0;
+            z-index: 999999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #080812;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #js-warning-box {
+            max-width: 430px;
+            padding: 30px;
+            border-radius: 20px;
+            background: linear-gradient(145deg, #15152b, #090912);
+            box-shadow: 0 0 40px rgba(120,70,255,.35);
+        }
+
+        #js-warning h2 {
+            margin-bottom: 12px;
+            font-size: 25px;
+        }
+
+        #js-warning p {
+            color: #bdbdc9;
+            line-height: 1.6;
+        }
+    </style>
+
+    <div id="js-warning">
+        <div id="js-warning-box">
+            <div style="font-size:45px;">⚠️</div>
+
+            <h2>JavaScript está desactivado</h2>
+
+            <p>
+                Por favor, activa JavaScript en la configuración
+                de tu navegador para continuar.
+            </p>
+        </div>
+    </div>
+</noscript>
 🎯
 </head>
 
