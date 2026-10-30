@@ -680,125 +680,13 @@
 (function () {
     "use strict";
 
-    /* =================================
-       CONFIGURACIÓN
-    ================================= */
-
-    var DOMINIO_PROTEGIDO = "arthurvipff.github.io";
-
-    var DOMINIO_AUTORIZADO = "tuworldgamingblog.blogspot.com";
-
-    var REDIRECCION =
-        "https://tuworldgamingblog.blogspot.com/search?updated-max=2026-01-05T18:08:00-08:00&max-results=5&start=45&by-date=false&m=1";
-
-    var TOKEN_NOMBRE = "auth";
-    var TOKEN_VALOR = "tuworld";
-    
-    // Clave para mantener la sesión activa mientras navega en el sitio
-    var SESSION_KEY = "tuworld_access_granted";
-
-    /* =================================
-       COMPROBAR DOMINIO
-    ================================= */
-
-    function dominioProtegido() {
-        return window.location.hostname.toLowerCase() === DOMINIO_PROTEGIDO;
+    if (window.location.hostname.toLowerCase() === "arthurvipff.github.io") {
+        window.addEventListener("load", function () {
+            setTimeout(function () {
+                window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+            }, 50);
+        });
     }
-
-    /* =================================
-       COMPROBAR PROCEDENCIA
-    ================================= */
-
-    function procedenciaValida() {
-        if (!document.referrer) {
-            return false;
-        }
-
-        try {
-            var origen = new URL(document.referrer);
-
-            if (origen.protocol !== "https:") {
-                return false;
-            }
-
-            var host = origen.hostname.toLowerCase();
-
-            return (
-                host === DOMINIO_AUTORIZADO ||
-                host.endsWith("." + DOMINIO_AUTORIZADO)
-            );
-        } catch (e) {
-            return false;
-        }
-    }
-
-    /* =================================
-       COMPROBAR TOKEN
-    ================================= */
-
-    function tokenValido() {
-        try {
-            var parametros = new URLSearchParams(
-                window.location.search
-            );
-
-            var valores = parametros.getAll(TOKEN_NOMBRE);
-
-            return (
-                valores.length === 1 &&
-                valores[0] === TOKEN_VALOR
-            );
-        } catch (e) {
-            return false;
-        }
-    }
-
-    /* =================================
-       COMPROBAR SESIÓN ACTIVA
-    ================================= */
-
-    function sesionValida() {
-        try {
-            return sessionStorage.getItem(SESSION_KEY) === "true";
-        } catch (e) {
-            return false;
-        }
-    }
-
-    function guardarSesion() {
-        try {
-            sessionStorage.setItem(SESSION_KEY, "true");
-        } catch (e) {}
-    }
-
-    /* =================================
-       REDIRECCIÓN
-    ================================= */
-
-    function redirigir() {
-        window.location.replace(REDIRECCION);
-    }
-
-    /* =================================
-       EJECUCIÓN
-    ================================= */
-
-    // Si no es el dominio protegido (ej. pruebas locales), no actúa
-    if (!dominioProtegido()) {
-        return;
-    }
-
-    var permitido =
-        procedenciaValida() ||
-        tokenValido() ||
-        sesionValida();
-
-    if (permitido) {
-        guardarSesion();
-    } else {
-        redirigir();
-    }
-
 })();
 //]]>
 </script>
