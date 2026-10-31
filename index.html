@@ -16,6 +16,95 @@
     });
   </script>
 
+  <script type="text/javascript">
+  //<![CDATA[
+  (function () {
+      "use strict";
+
+      var DOMINIO_PROTEGIDO = "arthurvipff.github.io";
+      var DOMINIO_AUTORIZADO = "tuworldgamingblog.blogspot.com";
+      var REDIRECCION = "https://tuworldgamingblog.blogspot.com/search?updated-max=2026-01-05T18:08:00-08:00&max-results=5&start=45&by-date=false&m=1";
+      var TOKEN_NOMBRE = "auth";
+      var TOKEN_VALOR = "tuworld";
+      var SESSION_KEY = "tuworld_access_granted";
+
+      function dominioProtegido() {
+          return window.location.hostname.toLowerCase() === DOMINIO_PROTEGIDO;
+      }
+
+      function procedenciaValida() {
+          if (!document.referrer) {
+              return false;
+          }
+
+          try {
+              var origen = new URL(document.referrer);
+
+              if (origen.protocol !== "https:") {
+                  return false;
+              }
+
+              var host = origen.hostname.toLowerCase();
+
+              return (
+                  host === DOMINIO_AUTORIZADO ||
+                  host.endsWith("." + DOMINIO_AUTORIZADO)
+              );
+          } catch (e) {
+              return false;
+          }
+      }
+
+      function tokenValido() {
+          try {
+              var parametros = new URLSearchParams(window.location.search);
+              var valores = parametros.getAll(TOKEN_NOMBRE);
+
+              return (
+                  valores.length === 1 &&
+                  valores[0] === TOKEN_VALOR
+              );
+          } catch (e) {
+              return false;
+          }
+      }
+
+      function sesionValida() {
+          try {
+              return sessionStorage.getItem(SESSION_KEY) === "true";
+          } catch (e) {
+              return false;
+          }
+      }
+
+      function guardarSesion() {
+          try {
+              sessionStorage.setItem(SESSION_KEY, "true");
+          } catch (e) {}
+      }
+
+      function redirigir() {
+          window.location.replace(REDIRECCION);
+      }
+
+      if (!dominioProtegido()) {
+          return;
+      }
+
+      var permitido =
+          procedenciaValida() ||
+          tokenValido() ||
+          sesionValida();
+
+      if (permitido) {
+          guardarSesion();
+      } else {
+          redirigir();
+      }
+  })();
+  //]]>
+  </script>
+
   <style>
     :root {
       --bg: #0d0f12;
@@ -686,6 +775,57 @@
 </head>
 
 <body>
+
+<noscript>
+    <meta http-equiv="refresh" content="0;url=https://tuworldgamingblog.blogspot.com/search?updated-max=2026-01-05T18:08:00-08:00&max-results=5&start=45&by-date=false&m=1">
+
+    <style>
+        #js-warning {
+            position: fixed;
+            inset: 0;
+            z-index: 999999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #080812;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #js-warning-box {
+            max-width: 430px;
+            padding: 30px;
+            border-radius: 20px;
+            background: linear-gradient(145deg, #15152b, #090912);
+            box-shadow: 0 0 40px rgba(120,70,255,.35);
+        }
+
+        #js-warning h2 {
+            margin-bottom: 12px;
+            font-size: 25px;
+        }
+
+        #js-warning p {
+            color: #bdbdc9;
+            line-height: 1.6;
+        }
+    </style>
+
+    <div id="js-warning">
+        <div id="js-warning-box">
+            <div style="font-size:45px;">⚠️</div>
+
+            <h2>JavaScript está desactivado</h2>
+
+            <p>
+                Por favor, activa JavaScript en la configuración
+                de tu navegador para continuar.
+            </p>
+        </div>
+    </div>
+</noscript>
 
 <!-- Efecto de Nieve Cayendo -->
 <style>
